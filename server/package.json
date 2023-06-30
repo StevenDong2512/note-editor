@@ -1,14 +1,19 @@
 {
     "name": "JATE",
     "version": "1.0.0",
-    "description": "",
+    "description": "Note taker application back end",
     "main": "server.js",
     "scripts": {
         "server": "nodemon server.js --ignore client"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "keywords": [
+        "Node.js",
+        "Express.js",
+        "PWA",
+        "Webpack"
+    ],
+    "author": "Steven Dong",
+    "license": "MIT",
     "dependencies": {
         "express": "^4.17.1"
     },
