@@ -1,12 +1,14 @@
 {
   "name": "JATE",
+  "version": "1.0.0",
+  "description": "Text editor application front end",
   "scripts": {
     "dev": "webpack-dev-server",
     "build": "webpack --mode production",
     "start": "webpack --watch"
   },
-  "author": "2U",
-  "license": "UNLICENSED",
+  "author": "Steven Dong",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@babel/plugin-transform-runtime": "^7.15.0",
