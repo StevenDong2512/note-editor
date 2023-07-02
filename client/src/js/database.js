@@ -12,37 +12,45 @@ const initdb = async () =>
     },
   });
 
-// TODO: Add logic to a method that accepts some content and adds it to the database
+// Export a function we will use to PUT to the database.
 export const putDb = async (content) => {
-  const isExisting = (await window.indexedDB.databases())
-    .map((db) => db.name)
-    .includes(DB_NAME);
-  if (!isExisting) {
-    await initdb();
-  }
-  const jateDb = await openDB(DB_NAME, DB_VERSION);
-  const tx = jateDb.transaction(DB_NAME, "readwrite");
-  const store = tx.objectStore(DB_NAME);
-  const request = store.put({ value: content, id: 1 });
+  console.log("PUT to the database");
+
+  // Create a connection to the database database and version we want to use.
+  const jateDb = await openDB("jate", 1);
+  // Create a new transaction and specify the database and data privileges.
+  const tx = jateDb.transaction("jate", "readwrite");
+  // Open up the desired object store.
+  const store = tx.objectStore("jate");
+  // Use the .put() method to update data in the database
+  const request = store.put({ id: 1, value: content });
+
+  // Get confirmation of the request.
   const result = await request;
-  console.log("text saved to the database", result);
+  console.log("jate data saved to the database", result);
 };
 
-// TODO: Add logic for a method that gets all the content from the database
+//Export const getDb = async () => console.error("getDb not implemented");
 export const getDb = async () => {
-  const isExisting = (await window.indexedDB.databases())
-    .map((db) => db.name)
-    .includes(DB_NAME);
-  if (!isExisting) {
-    await initdb();
-  }
-  const jateDb = await openDB(DB_NAME, DB_VERSION);
-  const tx = jateDb.transaction(DB_NAME, "readonly");
-  const store = tx.objectStore(DB_NAME);
+  console.log("GET from the database");
+
+  // Create a connection to the database database and version we want to use.
+  const jateDb = await openDB("jate", 1);
+
+  // Create a new transaction and specify the database and data privileges.
+  const tx = jateDb.transaction("jate", "readonly");
+
+  // Open up the desired object store.
+  const store = tx.objectStore("jate");
+
+  // Use the .get() method to get the data in the database.
   const request = store.get(1);
+
+  // Get confirmation of the request.
   const result = await request;
-  console.log("result.value", result);
-  return result ? result.value : false;
+  console.log("Get data to the database", result);
+  return result ? result.value : null;
+  // return result;
 };
 
 initdb();

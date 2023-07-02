@@ -7,37 +7,40 @@ const { InjectManifest } = require("workbox-webpack-plugin");
 // TODO: Add CSS loaders and babel to webpack.
 
 module.exports = () => {
+  // Entry point for files
   return {
     mode: "development",
     entry: {
       main: "./src/js/index.js",
       install: "./src/js/install.js",
     },
+    // Output for our bundles
     output: {
       filename: "[name].bundle.js",
       path: path.resolve(__dirname, "dist"),
     },
     plugins: [
-      // webpack html with favicon
+      // Webpack plugin that generates our html file and injects our bundles.
       new HtmlWebpackPlugin({
         template: "./index.html",
-        title: "J. A. T. E.",
-        favicon: "./favicon.ico",
+        title: "Text Editor",
       }),
-      // service worker
+      // Injects our custom service worker
       new InjectManifest({
-        swDest: "./src-sw.js",
+        swSrc: "./src-sw.js",
+        swDest: "src-sw.js",
       }),
+      // Creates a manifest.json file.
       new WebpackPwaManifest({
-        name: "JATE",
-        short_name: "jate",
-        description: "Just Another Text Editor",
-        background_color: "#ff00ff",
-        theme_color: "#ff00ff",
-        orientation: "portrait",
-        display: "standalone",
-        start_url: "./",
-        publicPath: "./",
+        fingerprints: false,
+        inject: true,
+        name: "Just Another Text Editor",
+        short_name: "Text Editor",
+        description: "You can write your code online and offine",
+        background_color: "#225ca3",
+        theme_color: "#225ca3",
+        start_url: "/",
+        publicPath: "/",
         icons: [
           {
             src: path.resolve("src/images/logo.png"),
@@ -47,7 +50,9 @@ module.exports = () => {
         ],
       }),
     ],
+
     module: {
+      // CSS loaders
       rules: [
         {
           test: /\.css$/i,
@@ -56,6 +61,7 @@ module.exports = () => {
         {
           test: /\.m?js$/,
           exclude: /node_modules/,
+          // We use babel-loader in order to use ES6.
           use: {
             loader: "babel-loader",
             options: {
@@ -66,10 +72,6 @@ module.exports = () => {
               ],
             },
           },
-        },
-        {
-          test: /\.png/,
-          type: "asset/resource",
         },
       ],
     },
