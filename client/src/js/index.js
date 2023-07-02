@@ -3,9 +3,9 @@ import Editor from "./editor";
 import "./database";
 import "./header";
 import "../css/style.css";
-import logoImage from "../images/logo.png";
-document.getElementById("logoImage").src = logoImage;
-document.getElementById("logoImage").setAttribute("width", "96");
+// import logoImage from "../images/logo.png";
+// document.getElementById("logoImage").src = logoImage;
+// document.getElementById("logoImage").setAttribute("width", "96");
 
 const main = document.querySelector("#main");
 main.innerHTML = "";
